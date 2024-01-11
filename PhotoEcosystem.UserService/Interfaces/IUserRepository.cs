@@ -5,11 +5,11 @@ namespace PhotoEcosystem.UserService.Interfaces
 {
     public interface IUserRepository
     {
-        Task CreateUser(User createUser);
-        Task UpdateUser(User updateUser);
-        Task DeleteUser(Guid id);
-        Task<List<User>> GetAllUsers();
-        Task<User> GetUserById(Guid id);
+        Task<User> CreateUserAsync(User createUser);
+        Task<User> UpdateUserAsync(User updateUser);
+        Task DeleteUserAsync(Guid id);
+        Task<List<User>> GetAllUsersAsync();
+        Task<User> GetUserByIdAsync(Guid id);
         Task<bool> IsUserExists(string login);
     }
 }

@@ -15,6 +15,7 @@
             this.Password = password;
             this.Status = Status.Active;
             this.LastTimeOnline = DateTime.UtcNow;
+            this.Email = string.Empty;
         }
 
         public User(string login, string password, string email) : this(login, password)
@@ -22,19 +23,19 @@
             this.Email = email;   
         }
 
-        public void ChangeLogin(string oldLogin, string newLogin)
+        public void SetLogin(string login)
         {
-            throw new NotImplementedException();
+            Login = login;
         }
 
-        public void ChangePassword(string oldPassword, string passwordConfirm)
+        public void SetPassword(string password)
         {
-            throw new NotImplementedException();
+            Password = password;
         }
 
-        public void ChangeEmail(string oldEmail, string newEmail)
+        public void SetEmail(string email)
         {
-            throw new NotImplementedException();
+            Email = email;
         }
     }
 }
