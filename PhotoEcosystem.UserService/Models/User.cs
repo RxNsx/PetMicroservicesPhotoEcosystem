@@ -2,6 +2,7 @@
 {
     public class User
     {
+        public Guid Id { get; private set; }
         public string Login { get; private set; }
         public string Password { get; private set; }
         public string Email { get; private set; }
@@ -13,7 +14,7 @@
             this.Login = login;
             this.Password = password;
             this.Status = Status.Active;
-            this.LastTimeOnline = DateTime.Now;
+            this.LastTimeOnline = DateTime.UtcNow;
         }
 
         public User(string login, string password, string email) : this(login, password)
