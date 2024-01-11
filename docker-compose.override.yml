@@ -1,0 +1,45 @@
+version: '3.4'
+
+networks:
+  postgres:
+    driver: bridge
+
+services:
+  photoecosystem.userservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 8001:8080
+
+  postgre-db:
+    networks:
+      - postgres
+    container_name: postgre_db
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: -pl,mju7
+      POSTGRES_DB: photoecosystem_users
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+
+  pgadmin:
+    networks:
+      - postgres
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    restart: always
+    volumes:
+      - pgadmindata:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: alpendev@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: -pl,mju7
+    ports:
+      - 5050:80
+
+volumes:
+  postgresdata:
+  pgadmindata:  

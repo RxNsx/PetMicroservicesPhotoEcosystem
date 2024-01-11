@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  photoecosystem.userservice:
+    image: ${DOCKER_REGISTRY-}photoecosystemuserservice
+    build:
+      context: .
+      dockerfile: PhotoEcosystem.UserService/Dockerfile
