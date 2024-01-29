@@ -6,3 +6,10 @@ services:
     build:
       context: .
       dockerfile: PhotoEcosystem.UserService/Dockerfile
+
+  photoecosystem.imageservice:
+    image: ${DOCKER_REGISTRY-}photoecosystemimageservice
+    build:
+      context: .
+      dockerfile: PhotoEcosystem.ImageService/Dockerfile
+

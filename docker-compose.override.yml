@@ -13,10 +13,18 @@ services:
     ports:
       - 8001:8080
 
-  postgre-db:
+  photoecosystem.imageservice:
     networks:
       - postgres
-    container_name: postgre_db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - 8002:8080
+
+  postgre-users-db:
+    networks:
+      - postgres
+    container_name: postgre_db_user_service
     image: postgres:latest
     restart: always
     environment:
@@ -24,24 +32,55 @@ services:
       POSTGRES_PASSWORD: -pl,mju7
       POSTGRES_DB: photoecosystem_users
     ports:
-      - 5432:5432
+      - 6001:5432
     volumes:
-      - postgresdata:/var/lib/postgresql/data
+      - postgresusersdata:/var/lib/postgresql/users/data
 
-  pgadmin:
+  pgadmin-users:
     networks:
       - postgres
-    container_name: pgadmin
+    container_name: pgadmin-users
     image: dpage/pgadmin4:latest
     restart: always
     volumes:
-      - pgadmindata:/var/lib/pgadmin
+      - pgadminusersdata:/var/lib/users/pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: alpendev@mail.ru
-      PGADMIN_DEFAULT_PASSWORD: -pl,mju7
+      PGADMIN_DEFAULT_EMAIL: root@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: qweqwe123
     ports:
       - 5050:80
 
+  postgre-images-db:
+    networks:
+      - postgres
+    container_name: postgre_db_image_service
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: -pl,mju7
+      POSTGRES_DB: photoecosystem_images
+    ports:
+      - 6002:5432
+    volumes:
+      - postgresimagesdata:/var/lib/postgresql/images/data
+
+  pgadmin-images:
+    networks:
+      - postgres
+    container_name: pgadmin-images
+    image: dpage/pgadmin4:latest
+    restart: always
+    volumes:
+      - pgadminimagesdata:/var/lib/images/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: qweqwe123
+    ports:
+      - 5051:80
+
 volumes:
-  postgresdata:
-  pgadmindata:  
+  postgresusersdata:
+  pgadminusersdata:
+  postgresimagesdata:
+  pgadminimagesdata:
