@@ -37,6 +37,7 @@ builder.Services.AddMediatR(conf =>
     conf.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
 });
 
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();

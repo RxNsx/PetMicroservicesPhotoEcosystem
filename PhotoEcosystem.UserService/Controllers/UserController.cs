@@ -8,6 +8,9 @@ using PhotoEcosystem.UserService.Queries.Users;
 
 namespace PhotoEcosystem.UserService.Controllers
 {
+    /// <summary>
+    /// Контроллер для управления пользователями
+    /// </summary>
     [ApiController]
     [Route("/api/[controller]")]
     public class UserController : ControllerBase
@@ -16,6 +19,12 @@ namespace PhotoEcosystem.UserService.Controllers
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="mediator"></param>
+        /// <param name="mapper"></param>
         public UserController(ILogger<UserController> logger, IMediator mediator, IMapper mapper)
         {
             this._logger = logger;

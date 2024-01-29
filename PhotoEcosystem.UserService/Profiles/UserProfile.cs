@@ -4,8 +4,14 @@ using PhotoEcosystem.UserService.Models;
 
 namespace PhotoEcosystem.UserService.Profiles
 {
+    /// <summary>
+    /// Класс маппинга для пользователей
+    /// </summary>
     public class UserProfile : Profile
     {
+        /// <summary>
+        /// Конструктор
+        /// </summary>
         public UserProfile()
         {
             CreateMap<UserCreateDto, User>()

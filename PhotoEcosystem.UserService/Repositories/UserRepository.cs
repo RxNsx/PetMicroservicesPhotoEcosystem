@@ -13,6 +13,11 @@ namespace PhotoEcosystem.UserService.Repositories
         private readonly AppDbContext _context;
         private readonly ILogger<UserRepository> _logger;
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="logger"></param>
         public UserRepository(AppDbContext context,
             ILogger<UserRepository> logger)
         {

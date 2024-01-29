@@ -3,8 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PhotoEcosystem.UserService.Data
 {
+    /// <summary>
+    /// Класс подготовки базы данных при первом запуске приложения
+    /// </summary>
     public static class PrepDatabase
     {
+        /// <summary>
+        /// Подготовка базы данных
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="isProduction"></param>
         public static void PreparationDatabase(IApplicationBuilder app, bool isProduction)
         {
             using (var scope = app.ApplicationServices.CreateScope())
@@ -15,6 +23,11 @@ namespace PhotoEcosystem.UserService.Data
             }
         }
 
+        /// <summary>
+        /// Заполнение базы данных
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="isProduction"></param>
         private static void SeedData(AppDbContext context, bool isProduction)
         {
             if(isProduction)
