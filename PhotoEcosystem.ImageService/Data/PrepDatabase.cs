@@ -103,6 +103,7 @@ namespace PhotoEcosystem.ImageService.Data
                     Name = "Photo1",
                     IsFavourite = false,
                     IsPrivate = false,
+                    AlbumId = null,
                     LikesCount = 0,
                     User = user
                 },
@@ -112,6 +113,7 @@ namespace PhotoEcosystem.ImageService.Data
                     Name = "Photo2",
                     IsFavourite = false,
                     IsPrivate = false,
+                    AlbumId = null,
                     LikesCount = 0,
                     User = user
                 },
@@ -121,6 +123,7 @@ namespace PhotoEcosystem.ImageService.Data
                     Name = "Photo3",
                     IsFavourite = false,
                     IsPrivate = false,
+                    AlbumId = null,
                     LikesCount = 0,
                     User = user,
                 }

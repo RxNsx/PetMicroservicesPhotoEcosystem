@@ -28,13 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Commands\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="Profiles\" />
-    <Folder Include="Queries\" />
+    <Folder Include="Commands\Photos\" />
   </ItemGroup>
 
 </Project>

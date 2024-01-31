@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using PhotoEcosystem.ImageService.Data;
+using PhotoEcosystem.ImageService.Interfaces;
+using PhotoEcosystem.ImageService.Repositories;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +36,8 @@ builder.Services.AddMediatR(conf =>
 });
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 
 var app = builder.Build();
 PrepDatabase.PreparationDatabaseAsync(app, app.Environment.IsProduction());
