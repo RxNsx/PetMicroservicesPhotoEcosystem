@@ -1,13 +1,13 @@
 version: '3.4'
 
 networks:
-  postgres:
+  backend:
     driver: bridge
 
 services:
   photoecosystem.userservice:
     networks:
-      - postgres
+      - backend
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
@@ -15,15 +15,31 @@ services:
 
   photoecosystem.imageservice:
     networks:
-      - postgres
+      - backend
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - 8002:8080
+  
+  photoecosystem.rabbitmq:
+    networks:
+      - backend
+    image: rabbitmq:3.11.7-management
+    container_name: mq_mgmt
+    hostname: ecosystem-mq
+    environment:
+        RABBITMQ_DEFAULT_USER: guest
+        RABBITMQ_DEFAULT_PASSWORD: guest
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_logs:/var/log/rabbitmq
 
   postgre-users-db:
     networks:
-      - postgres
+      - backend
     container_name: postgre_db_user_service
     image: postgres:latest
     restart: always
@@ -35,10 +51,10 @@ services:
       - 6001:5432
     volumes:
       - postgresusersdata:/var/lib/postgresql/users/data
-
+  
   pgadmin-users:
     networks:
-      - postgres
+      - backend
     container_name: pgadmin-users
     image: dpage/pgadmin4:latest
     restart: always
@@ -52,7 +68,7 @@ services:
 
   postgre-images-db:
     networks:
-      - postgres
+      - backend
     container_name: postgre_db_image_service
     image: postgres:latest
     restart: always
@@ -67,7 +83,7 @@ services:
 
   pgadmin-images:
     networks:
-      - postgres
+      - backend
     container_name: pgadmin-images
     image: dpage/pgadmin4:latest
     restart: always
@@ -84,3 +100,5 @@ volumes:
   pgadminusersdata:
   postgresimagesdata:
   pgadminimagesdata:
+  rabbitmq_data:
+  rabbitmq_logs:
