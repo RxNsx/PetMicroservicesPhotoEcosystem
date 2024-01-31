@@ -1,4 +1,6 @@
-﻿namespace PhotoEcosystem.UserService.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PhotoEcosystem.UserService.Models
 {
     /// <summary>
     /// Модель пользователя
@@ -8,18 +10,22 @@
         /// <summary>
         /// Идентификатор
         /// </summary>
+        [Key]
         public Guid Id { get; private set; }
         /// <summary>
         /// Логин
         /// </summary>
+        [Required]
         public string Login { get; private set; }
         /// <summary>
         /// Пароль
         /// </summary>
+        [Required]
         public string Password { get; private set; }
         /// <summary>
         /// Почта
         /// </summary>
+        [Required]
         public string Email { get; private set; }
         /// <summary>
         /// Статус пользователя
