@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PhotoEcosystem.ImageService.Migrations
 {
     /// <inheritdoc />
-    public partial class IntiialAlbumsPhotosUsers : Migration
+    public partial class InitialDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

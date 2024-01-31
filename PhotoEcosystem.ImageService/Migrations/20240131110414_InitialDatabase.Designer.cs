@@ -12,8 +12,8 @@ using PhotoEcosystem.ImageService.Data;
 namespace PhotoEcosystem.ImageService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240129133024_IntiialAlbumsPhotosUsers")]
-    partial class IntiialAlbumsPhotosUsers
+    [Migration("20240131110414_InitialDatabase")]
+    partial class InitialDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,7 +123,7 @@ namespace PhotoEcosystem.ImageService.Migrations
 
             modelBuilder.Entity("PhotoEcosystem.ImageService.Models.Photo", b =>
                 {
-                    b.HasOne("PhotoEcosystem.ImageService.Models.Album", null)
+                    b.HasOne("PhotoEcosystem.ImageService.Models.Album", "Album")
                         .WithMany("Photos")
                         .HasForeignKey("AlbumId");
 
@@ -132,6 +132,8 @@ namespace PhotoEcosystem.ImageService.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Album");
 
                     b.Navigation("User");
                 });
