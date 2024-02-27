@@ -16,10 +16,6 @@ namespace PhotoEcosystem.UserService.Dtos.Users
         /// </summary>
         public string Login { get; set; } = string.Empty;
         /// <summary>
-        /// Пароль
-        /// </summary>
-        public string Password { get; set; } = string.Empty;
-        /// <summary>
         /// Почта
         /// </summary>
         public string Email { get; set; } = string.Empty;
