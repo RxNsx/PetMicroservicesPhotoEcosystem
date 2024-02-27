@@ -32,8 +32,4 @@ public class User
     /// Альбомы пользователя
     /// </summary>
     public List<Album> Albums { get; set; } = new List<Album>();
-    /// <summary>
-    /// Фото пользователя
-    /// </summary>
-    public List<Photo> Photos { get; set; } = new List<Photo>();
 }

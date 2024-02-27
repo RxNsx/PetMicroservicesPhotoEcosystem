@@ -29,14 +29,6 @@ public class Photo
     /// </summary>
     public int LikesCount { get; set; }
     /// <summary>
-    /// Айди пользователя
-    /// </summary>
-    public Guid UserId { get; set; }
-    /// <summary>
-    /// Модель пользователя
-    /// </summary>
-    public User User { get; set; }
-    /// <summary>
     /// Айди альбома
     /// </summary>
     public Guid? AlbumId { get; set; }
@@ -44,4 +36,12 @@ public class Photo
     /// Альбом
     /// </summary>
     public Album? Album { get; set; }
+    /// <summary>
+    /// Идентификатор пользователя владельца альбома
+    /// </summary>
+    public Guid UserId { get; set; }
+    /// <summary>
+    /// Модель пользователя
+    /// </summary>
+    public User User { get; set; }
 }

@@ -30,9 +30,9 @@ namespace PhotoEcosystem.ImageService.Handlers.Photos
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<List<Photo>> Handle(GetAllPhotoByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<List<Photo>> Handle(GetAllPhotoByUserIdQuery request, CancellationToken cancellationToken)
         {
-            return _photoRepository.GetAllPhotoByUserIdAsync(request.UserId);
+            return await _photoRepository.GetAllPhotoByUserIdAsync(request.UserId);
         }
     }
 }

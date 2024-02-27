@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PhotoEcosystem.ImageService.Dtos;
+using PhotoEcosystem.ImageService.Models;
 using PhotoEcosystem.ImageService.Queries.Photos;
 
 namespace PhotoEcosystem.ImageService.Controllers

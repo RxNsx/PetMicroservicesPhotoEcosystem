@@ -6,6 +6,7 @@ using PhotoEcosystem.ImageService.Data;
 using PhotoEcosystem.ImageService.Interfaces;
 using PhotoEcosystem.ImageService.Repositories;
 using PhotoEcosystem.ImageService.Settings;
+using PhotoEcosystem.ImageService.SyncDataClient;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -66,6 +67,8 @@ builder.Services.AddMassTransit(busConfigurator =>
     });
 });
 
+//Подключение http клиента для синхронной связи
+builder.Services.AddHttpClient<IUserHttpDataClient, UserHttpDataClient>();
 ///Настройки репозиториев scoped
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 

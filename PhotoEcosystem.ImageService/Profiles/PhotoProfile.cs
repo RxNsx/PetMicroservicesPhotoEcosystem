@@ -15,6 +15,11 @@ namespace PhotoEcosystem.ImageService.Profiles
         public PhotoProfile()
         {
             CreateMap<PhotoCreateDto, Photo>();
+            CreateMap<Photo, PhotoReadDto>()
+                .ForMember(dst => dst.Id, opts => opts.MapFrom(src => src.Id))
+                .ForMember(dst => dst.Name, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dst => dst.IsPrivate, opts => opts.Ignore())
+                .ForMember(dst => dst.LikesCount, opts => opts.Ignore());
         }
     }
 }

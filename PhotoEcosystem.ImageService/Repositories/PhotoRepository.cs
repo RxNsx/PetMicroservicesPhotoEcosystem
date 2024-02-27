@@ -34,7 +34,7 @@ namespace PhotoEcosystem.ImageService.Repositories
             if(!await IsPhotoExistsAsync(userId, photo.Name))
             {
                 var user = await GetCurrentUserAsync(userId);
-                user.Photos.Add(photo);
+                user.Albums.FirstOrDefault(a => a.Id == null).Photos.Add(photo);
                 await _context.Photos.AddAsync(photo);
                 SaveChangesAsync();
             }
@@ -87,8 +87,8 @@ namespace PhotoEcosystem.ImageService.Repositories
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var photo = user.Photos.FirstOrDefault(p => p.Name == name);
-            return photo is null;
+            var isPhotoWithNameExists = user.Albums.Any(a => a.Photos.Any(p => p.Name == name));
+            return isPhotoWithNameExists;
         }
 
         /// <summary>
@@ -106,7 +106,19 @@ namespace PhotoEcosystem.ImageService.Repositories
                 throw new ArgumentNullException(nameof(user));
             }
 
-            return user.Photos.ToList();
+            var userPhotos = await _context.Photos
+                .Include(p => p.Album)
+                .Where(p => p.AlbumId != null && p.Album.UserId == userId)
+                .Union
+                (
+                    _context.Photos
+                        .Include(p => p.Album)
+                        .Where(p => p.AlbumId == null && p.UserId == userId)
+
+                )
+                .ToListAsync();
+
+            return userPhotos;
         }
 
         /// <summary>
