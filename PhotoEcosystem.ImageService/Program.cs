@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using PhotoEcosystem.ImageService.Data;
 using PhotoEcosystem.ImageService.Interfaces;
+using PhotoEcosystem.ImageService.Middlewares;
 using PhotoEcosystem.ImageService.Repositories;
 using PhotoEcosystem.ImageService.Settings;
 using PhotoEcosystem.ImageService.SyncDataClient;
@@ -72,6 +73,8 @@ builder.Services.AddHttpClient<IUserHttpDataClient, UserHttpDataClient>();
 ///Настройки репозиториев scoped
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 
+builder.Services.AddTransient<ExceptionMiddleware>();
+
 var app = builder.Build();
 ///Предзаполнение базы данных
 await PrepDatabase.PreparationDatabaseAsync(app, app.Environment.IsProduction());
@@ -79,5 +82,8 @@ await PrepDatabase.PreparationDatabaseAsync(app, app.Environment.IsProduction())
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.MapControllers();
 app.Run();
