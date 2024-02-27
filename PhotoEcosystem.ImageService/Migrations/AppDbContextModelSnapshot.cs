@@ -95,6 +95,9 @@ namespace PhotoEcosystem.ImageService.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("LastTimeOnline")
                         .HasColumnType("timestamp with time zone");
 
@@ -125,7 +128,7 @@ namespace PhotoEcosystem.ImageService.Migrations
                         .HasForeignKey("AlbumId");
 
                     b.HasOne("PhotoEcosystem.ImageService.Models.User", "User")
-                        .WithMany("Photos")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -143,8 +146,6 @@ namespace PhotoEcosystem.ImageService.Migrations
             modelBuilder.Entity("PhotoEcosystem.ImageService.Models.User", b =>
                 {
                     b.Navigation("Albums");
-
-                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PhotoEcosystem.ImageService.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDatabase : Migration
+    public partial class FixedModels2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,6 +16,7 @@ namespace PhotoEcosystem.ImageService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ExternalId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     LastTimeOnline = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -56,8 +57,8 @@ namespace PhotoEcosystem.ImageService.Migrations
                     IsPrivate = table.Column<bool>(type: "boolean", nullable: false),
                     IsFavourite = table.Column<bool>(type: "boolean", nullable: false),
                     LikesCount = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AlbumId = table.Column<Guid>(type: "uuid", nullable: true)
+                    AlbumId = table.Column<Guid>(type: "uuid", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
