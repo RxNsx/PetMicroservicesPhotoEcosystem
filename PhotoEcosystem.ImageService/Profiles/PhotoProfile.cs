@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PhotoEcosystem.ImageService.Dtos;
+using PhotoEcosystem.ImageService.Dtos.Photos;
 using PhotoEcosystem.ImageService.Models;
 
 namespace PhotoEcosystem.ImageService.Profiles
@@ -15,11 +15,9 @@ namespace PhotoEcosystem.ImageService.Profiles
         public PhotoProfile()
         {
             CreateMap<PhotoCreateDto, Photo>();
-            CreateMap<Photo, PhotoReadDto>()
-                .ForMember(dst => dst.Id, opts => opts.MapFrom(src => src.Id))
-                .ForMember(dst => dst.Name, opts => opts.MapFrom(src => src.Name))
-                .ForMember(dst => dst.IsPrivate, opts => opts.Ignore())
-                .ForMember(dst => dst.LikesCount, opts => opts.Ignore());
+            CreateMap<Photo, PhotoReadDto>();
+            CreateMap<PhotoUpdateDto, Photo>();
+                //.ForMember(dst => dst.AlbumId, opt => opt.MapFrom(src => src.AlbumId ?? Guid.Empty)
         }
     }
 }

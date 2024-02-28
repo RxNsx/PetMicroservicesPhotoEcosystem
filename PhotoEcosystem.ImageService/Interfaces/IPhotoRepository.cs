@@ -18,13 +18,20 @@ namespace PhotoEcosystem.ImageService.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task RemoveAsync(Guid id);
+        public Task RemoveAsync(Guid photoId, Guid userId);
         /// <summary>
         /// Получить фото по айди
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<Photo> GetByIdAsync(Guid id);
+        public Task<Photo> GetPhotoByIdAsync(Guid id);
+        /// <summary>
+        /// Обновление фотографии
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="photo"></param>
+        /// <returns></returns>
+        public Task<Photo> UpdatePhotoAsync(Guid userId, Photo photo);
         /// <summary>
         /// Существует ли такая фотография с таким названием
         /// </summary>

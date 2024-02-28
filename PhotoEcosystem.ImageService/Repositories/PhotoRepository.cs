@@ -10,7 +10,13 @@ namespace PhotoEcosystem.ImageService.Repositories
     /// </summary>
     public sealed class PhotoRepository : IPhotoRepository
     {
+        /// <summary>
+        /// Контекст
+        /// </summary>
         private readonly AppDbContext _context;
+        /// <summary>
+        /// Логгер
+        /// </summary>
         private readonly ILogger<PhotoRepository> _logger;
 
         /// <summary>
@@ -24,19 +30,26 @@ namespace PhotoEcosystem.ImageService.Repositories
         }
 
         /// <summary>
-        /// Добавить фото
+        /// Добавить фото пользователю
         /// </summary>
+        /// <param name="userId"></param>
         /// <param name="photo"></param>
         /// <returns></returns>
         public async Task AddAsync(Guid userId, Photo photo)
         {
-            _logger.LogInformation($"Добавление фото с именем: {photo.Name}");
+            _logger.LogInformation($"Добавление фото с пользователю: {userId} c именем: {photo.Name}");
             if(!await IsPhotoExistsAsync(userId, photo.Name))
             {
-                var user = await GetCurrentUserAsync(userId);
-                user.Albums.FirstOrDefault(a => a.Id == null).Photos.Add(photo);
-                await _context.Photos.AddAsync(photo);
-                SaveChangesAsync();
+                try
+                {
+                    photo.UserId = userId;
+                    var newPhoto = await _context.Photos.AddAsync(photo);
+                    SaveChangesAsync();
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
             }
         }
 
@@ -45,10 +58,10 @@ namespace PhotoEcosystem.ImageService.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task RemoveAsync(Guid id)
+        public async Task RemoveAsync(Guid photoId, Guid userId)
         {
-            _logger.LogInformation($"Удаление фото по Id:{id}");
-            var photo = await GetByIdAsync(id);
+            _logger.LogInformation($"Удаление фото по Id:{photoId}");
+            var photo = await GetPhotoByIdAsync(userId);
             _context.Photos.Remove(photo);
             SaveChangesAsync();
         }
@@ -58,10 +71,10 @@ namespace PhotoEcosystem.ImageService.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Photo> GetByIdAsync(Guid id)
+        public async Task<Photo> GetPhotoByIdAsync(Guid id)
         {
             _logger.LogInformation($"Получение фото по Id:{id}");
-            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+            var photo = await _context.Photos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
             if(photo is null)
             {
                 throw new ArgumentNullException(nameof(photo));
@@ -87,8 +100,7 @@ namespace PhotoEcosystem.ImageService.Repositories
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var isPhotoWithNameExists = user.Albums.Any(a => a.Photos.Any(p => p.Name == name));
-            return isPhotoWithNameExists;
+            return _context.Photos.Any(p => p.UserId == userId && p.Name == name);
         }
 
         /// <summary>
@@ -107,6 +119,7 @@ namespace PhotoEcosystem.ImageService.Repositories
             }
 
             var userPhotos = await _context.Photos
+                .AsNoTracking()
                 .Include(p => p.Album)
                 .Where(p => p.AlbumId != null && p.Album.UserId == userId)
                 .Union
@@ -147,7 +160,36 @@ namespace PhotoEcosystem.ImageService.Repositories
         /// <returns></returns>
         private async Task<User> GetCurrentUserAsync(Guid id)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+            if(user is null)
+            {
+                throw new ArgumentNullException($"Нету пользователя с Id:{id}");
+            }
+
+            return user;
+        }
+
+        /// <summary>
+        /// Обновление фотографии
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="updatedPhoto"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<Photo> UpdatePhotoAsync(Guid userId, Photo updatedPhoto)
+        {
+            var user = await GetCurrentUserAsync(userId);
+            var photo = await GetPhotoByIdAsync(updatedPhoto.Id);
+
+            photo.Name = updatedPhoto.Name;
+            photo.IsFavourite = updatedPhoto.IsFavourite;
+            photo.IsPrivate = updatedPhoto.IsPrivate;
+            photo.LikesCount = updatedPhoto.LikesCount;
+            photo.AlbumId = updatedPhoto.AlbumId;
+            photo.UserId = user.Id;
+            SaveChangesAsync();
+
+            return photo;
         }
     }
 }
