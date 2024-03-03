@@ -13,7 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0898955C-31A7-4B16-9FAF-3616611B0069}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoEcosystem.ImageService", "PhotoEcosystem.ImageService\PhotoEcosystem.ImageService.csproj", "{35A1CF04-9275-43B1-AD08-857927DB9D18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoEcosystem.ImageService", "PhotoEcosystem.ImageService\PhotoEcosystem.ImageService.csproj", "{35A1CF04-9275-43B1-AD08-857927DB9D18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9B955DB1-8D74-476B-98A5-1271617688C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Tests", "UserService.Tests\UserService.Tests.csproj", "{FAA83EE8-B0CC-4EE4-87A8-ACDF734E24C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,10 @@ Global
 		{35A1CF04-9275-43B1-AD08-857927DB9D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35A1CF04-9275-43B1-AD08-857927DB9D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35A1CF04-9275-43B1-AD08-857927DB9D18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAA83EE8-B0CC-4EE4-87A8-ACDF734E24C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAA83EE8-B0CC-4EE4-87A8-ACDF734E24C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAA83EE8-B0CC-4EE4-87A8-ACDF734E24C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAA83EE8-B0CC-4EE4-87A8-ACDF734E24C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +49,7 @@ Global
 		{F48DA07F-8E3E-4409-BF00-4BAE01506E58} = {138DC505-7172-4FF7-9760-66C73F2015CB}
 		{0898955C-31A7-4B16-9FAF-3616611B0069} = {519C1E61-731B-49D6-B385-581E7C140656}
 		{35A1CF04-9275-43B1-AD08-857927DB9D18} = {138DC505-7172-4FF7-9760-66C73F2015CB}
+		{FAA83EE8-B0CC-4EE4-87A8-ACDF734E24C2} = {9B955DB1-8D74-476B-98A5-1271617688C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7FD2957-CE4A-49C7-974D-D78967EF20BB}
