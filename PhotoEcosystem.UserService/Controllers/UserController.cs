@@ -88,18 +88,17 @@ namespace PhotoEcosystem.UserService.Controllers
         /// <summary>
         /// Обновление пользователя
         /// </summary>
-        /// <param name="updateUser"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<ActionResult> UpdateUserAsync([FromBody]UserReadDto updateUser)
+        public async Task<ActionResult> UpdateUserAsync([FromBody]User user)
         {
-            var updatedUser = _mapper.Map<User>(updateUser);
-            var command = new UpdateUserCommand(updatedUser);
+            var command = new UpdateUserCommand(user);
             var result = await _mediator.Send(command);
 
             if (result is null)
             {
-                return NotFound(new { Id = updateUser.Id });
+                return NotFound(new { Id = user.Id });
             }
 
             return Ok(result);

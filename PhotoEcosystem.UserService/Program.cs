@@ -79,3 +79,8 @@ app.UseSwaggerUI();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
+
+/// <summary>
+/// Частичный класс для тестов
+/// </summary>
+public partial class Program { }

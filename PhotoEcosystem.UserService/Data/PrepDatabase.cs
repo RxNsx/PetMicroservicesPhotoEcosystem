@@ -18,7 +18,6 @@ namespace PhotoEcosystem.UserService.Data
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
                 SeedData(context, isProduction);
             }
         }
@@ -30,8 +29,8 @@ namespace PhotoEcosystem.UserService.Data
         /// <param name="isProduction"></param>
         private static void SeedData(AppDbContext context, bool isProduction)
         {
-            if(isProduction)
-            {
+            //if(isProduction)
+            //{
                 try
                 {
                     Console.WriteLine($"---> Попытка применить миграцию БД");
@@ -41,7 +40,7 @@ namespace PhotoEcosystem.UserService.Data
                 {
                     Console.WriteLine($"---> Невозможно применить миграцию к БД:\n{ex.Message}");
                 }
-            }
+            //}
 
             if(!context.Users.Any())
             {

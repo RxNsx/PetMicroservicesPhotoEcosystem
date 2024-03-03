@@ -98,7 +98,7 @@ namespace PhotoEcosystem.UserService.Repositories
         {
             _logger.LogInformation($"Проверка существует ли пользователь в базе данных");
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
-            return user is null;
+            return user is not null;
         }
 
         /// <summary>
