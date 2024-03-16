@@ -12,7 +12,7 @@ namespace PhotoEcosystem.UserService.Controllers
     /// Контроллер для управления пользователями
     /// </summary>
     [ApiController]
-    [Route("/api/[controller]")]
+    [Route("/api/users")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
@@ -71,7 +71,7 @@ namespace PhotoEcosystem.UserService.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{id:guid}")]
+        [Route("user/{id:guid}")]
         public async Task<ActionResult<UserReadDto>> GetUserByIdAsync(Guid id)
         {
             var query = new GetUserByIdQuery(id);
@@ -110,7 +110,7 @@ namespace PhotoEcosystem.UserService.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{id:guid}")]
+        [Route("user/{id:guid}")]
         public async Task<ActionResult> DeleteUserById(Guid id)
         {
             var command = new DeleteUserByIdCommand(id);
