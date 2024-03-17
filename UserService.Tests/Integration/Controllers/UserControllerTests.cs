@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PhotoEcosystem.UserService.Commands.Users;
 using PhotoEcosystem.UserService.Models;
+using PhotoEcosystem.UserService.Queries.Users;
 using UserService.Tests.Mocks;
 using Xunit;
 
@@ -81,8 +82,42 @@ namespace UserService.Tests.Integration.Controllers
         {
             //Arrange
             var user = await Context.Users.FirstOrDefaultAsync();
+            var query = new GetUserByIdQuery(user.Id);
 
+            //Act
+            var result = await Sender.Send(query);
 
+            //Assert
+            Assert.Equal(user.Id, result.Id);
+        }
+
+        [Fact]
+        public async Task GetUserById_ShouldReturn_GetNull()
+        {
+            //Arrange
+            var guid = Guid.NewGuid();
+            var query = new GetUserByIdQuery(guid);
+
+            //Act
+            var result = await Sender.Send(query);
+
+            //ASsert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task DeleteUser_ShouldDelete_ValidUser()
+        {
+            //Arrange
+            var userEntity = await Context.Users.AddAsync(MockData.ValidUser);
+            var command = new DeleteUserByIdCommand(userEntity.Entity.Id);
+
+            //Act
+            await Sender.Send(command);
+            var deletedUser = await Context.Users.FirstOrDefaultAsync(u => u.Id == userEntity.Entity.Id);
+
+            //Assert
+            Assert.Null(deletedUser);
         }
     }
 }
