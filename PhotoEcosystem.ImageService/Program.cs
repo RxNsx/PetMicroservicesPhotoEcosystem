@@ -12,7 +12,11 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(configre =>
+{
+    configre.SuppressAsyncSuffixInActionNames = true;
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -72,6 +76,7 @@ builder.Services.AddMassTransit(busConfigurator =>
 builder.Services.AddHttpClient<IUserHttpDataClient, UserHttpDataClient>();
 ///Настройки репозиториев scoped
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
+builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
 
 builder.Services.AddTransient<ExceptionMiddleware>();
 
