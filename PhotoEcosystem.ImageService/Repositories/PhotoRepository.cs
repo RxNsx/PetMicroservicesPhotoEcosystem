@@ -23,6 +23,7 @@ namespace PhotoEcosystem.ImageService.Repositories
         /// Конструктор
         /// </summary>
         /// <param name="context"></param>
+        /// <param name="logger"></param>
         public PhotoRepository(AppDbContext context, ILogger<PhotoRepository> logger)
         {
             this._context = context;
@@ -56,7 +57,8 @@ namespace PhotoEcosystem.ImageService.Repositories
         /// <summary>
         /// Удалить фото
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="photoId"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
         public async Task RemoveAsync(Guid photoId, Guid userId)
         {
@@ -161,7 +163,7 @@ namespace PhotoEcosystem.ImageService.Repositories
         private async Task<User> GetCurrentUserAsync(Guid id)
         {
             var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
-            if(user is null)
+            if (user is null)
             {
                 throw new ArgumentNullException($"Нету пользователя с Id:{id}");
             }

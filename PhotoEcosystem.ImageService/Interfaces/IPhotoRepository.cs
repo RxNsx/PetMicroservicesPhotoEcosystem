@@ -32,10 +32,12 @@ namespace PhotoEcosystem.ImageService.Interfaces
         /// <param name="photo"></param>
         /// <returns></returns>
         public Task<Photo> UpdatePhotoAsync(Guid userId, Photo photo);
+
         /// <summary>
         /// Существует ли такая фотография с таким названием
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="userId"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
         public Task<bool> IsPhotoExistsAsync(Guid userId, string name);
         /// <summary>
