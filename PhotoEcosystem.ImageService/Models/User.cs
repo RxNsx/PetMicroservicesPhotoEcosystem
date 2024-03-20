@@ -31,5 +31,5 @@ public class User
     /// <summary>
     /// Альбомы пользователя
     /// </summary>
-    public List<Album> Albums { get; set; } = new List<Album>();
+    public ICollection<Album> Albums { get; set; } = new List<Album>();
 }

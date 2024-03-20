@@ -18,6 +18,24 @@ namespace PhotoEcosystem.ImageService.Data
         }
 
         /// <summary>
+        /// Построение связей объекта FLUENT API
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Albums)
+                .WithOne(a => a.User)
+                .HasForeignKey(a => a.UserId);
+
+
+            modelBuilder.Entity<Album>()
+                .HasMany(a => a.Photos)
+                .WithOne(p => p.Album)
+                .HasForeignKey(p => p.AlbumId);
+        }
+
+        /// <summary>
         /// Пользователи
         /// </summary>
         public DbSet<User> Users { get; set; }

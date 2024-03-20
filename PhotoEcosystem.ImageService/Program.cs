@@ -1,3 +1,4 @@
+using System.Reflection;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -8,7 +9,6 @@ using PhotoEcosystem.ImageService.Middlewares;
 using PhotoEcosystem.ImageService.Repositories;
 using PhotoEcosystem.ImageService.Settings;
 using PhotoEcosystem.ImageService.SyncDataClient;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,20 +20,21 @@ builder.Services.AddControllers(configre =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-///Настройки бд
+///пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration["ConnectionStrings:PostgreConnectionString"]); 
+    options.UseNpgsql(builder.Configuration["ConnectionStrings:PostgreConnectionString"]);
+    options.EnableSensitiveDataLogging();
 });
 
-///Настройки сваггера
+///пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 builder.Services.AddSwaggerGen(cfg =>
 {
     cfg.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "ImageServiceAPI",
         Version = "v1",
-        Description = "API для управления фотографиями и альбомами"
+        Description = "API пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"
     });
 
     var xmlDocFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -41,7 +42,7 @@ builder.Services.AddSwaggerGen(cfg =>
     cfg.IncludeXmlComments(xmlDocPath, true);
 });
 
-///Настроики медиатра
+///пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 builder.Services.AddMediatR(conf =>
 {
     conf.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
@@ -49,13 +50,13 @@ builder.Services.AddMediatR(conf =>
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-///Настройки из файла конфигурации
+///пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 builder.Services.Configure<RabbitMqSettings>(
     builder.Configuration.GetSection("RabbitMqSettings"));
 builder.Services.AddSingleton(sp =>
     sp.GetRequiredService<IOptions<RabbitMqSettings>>().Value);
 
-///Настройки брокера
+///пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 builder.Services.AddMassTransit(busConfigurator =>
 {
     busConfigurator.SetKebabCaseEndpointNameFormatter();
@@ -72,16 +73,16 @@ builder.Services.AddMassTransit(busConfigurator =>
     });
 });
 
-//Подключение http клиента для синхронной связи
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ http пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 builder.Services.AddHttpClient<IUserHttpDataClient, UserHttpDataClient>();
-///Настройки репозиториев scoped
+///пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ scoped
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
 
 builder.Services.AddTransient<ExceptionMiddleware>();
 
 var app = builder.Build();
-///Предзаполнение базы данных
+///пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 await PrepDatabase.PreparationDatabaseAsync(app, app.Environment.IsProduction());
 
 app.UseSwagger();

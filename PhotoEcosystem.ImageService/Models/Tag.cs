@@ -1,4 +1,6 @@
-﻿namespace PhotoEcosystem.ImageService.Models;
+﻿using System;
+
+namespace PhotoEcosystem.ImageService.Models;
 public class Tag
 {
     public Guid Id { get; set; }

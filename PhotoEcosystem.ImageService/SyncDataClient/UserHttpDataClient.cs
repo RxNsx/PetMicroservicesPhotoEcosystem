@@ -11,7 +11,6 @@ namespace PhotoEcosystem.ImageService.SyncDataClient
     public class UserHttpDataClient : IUserHttpDataClient
     {
         private readonly HttpClient _httpClient;
-        private readonly IConfiguration _configuration; //TODO: Адрес из конфигурации
         private readonly IMapper _mapper;
 
         /// <summary>
@@ -20,17 +19,30 @@ namespace PhotoEcosystem.ImageService.SyncDataClient
         public UserHttpDataClient(HttpClient httpClient, IConfiguration configuration, IMapper mapper)
         {
             this._httpClient = httpClient;
-            this._configuration = configuration;
             this._mapper = mapper;
-            _httpClient.BaseAddress = new Uri(_configuration["UserServiceAddress"]);
+            _httpClient.BaseAddress = new Uri(configuration["UserServiceAddress"]);
         } 
 
+        /// <summary>
+        /// Получение всех пользователей из сервиса пользователей
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<User>> GetAllUsersAsync()
         {
-            var result = await _httpClient.GetAsync("/api/user");
-            var usersJson = await result.Content.ReadAsStringAsync();
-            var users = JsonConvert.DeserializeObject<List<HttpUser>>(usersJson);
-            return _mapper.Map<List<User>>(users);
+            try
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                using var client = new HttpClient();
+                var result = await client.GetAsync("http://userservice:8080/api/users");
+                var usersJson = await result.Content.ReadAsStringAsync();
+                var users = JsonConvert.DeserializeObject<List<HttpUser>>(usersJson);
+                return _mapper.Map<List<User>>(users);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }
