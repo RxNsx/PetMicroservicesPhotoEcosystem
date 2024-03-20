@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PhotoEcosystem.ImageService.Models;
 using PhotoEcosystem.ImageService.SyncDataClient;
 
@@ -61,7 +60,7 @@ namespace PhotoEcosystem.ImageService.Data
         /// <param name="context"></param>
         private static async Task SeedUsers(AppDbContext context, List<User> users)
         {
-            if(users.Count > 0 && users is not null)
+            if(users.Count > 0)
             {
                 context.AddRange(users);
                 await context.SaveChangesAsync();
@@ -75,43 +74,50 @@ namespace PhotoEcosystem.ImageService.Data
         /// <param name="user"></param>
         private static async Task SeedAlbumsForUser(AppDbContext context)
         {
-            var user = context.Users.OrderBy(u => u.Id).FirstOrDefault();
+            var user = context.Users
+                .Include(u => u.Albums)
+                .AsNoTracking()
+                .FirstOrDefault();
+            
             if (user is not null)
             {
                 if (user.Albums.Count == 0)
                 {
-                    await context.Albums.AddAsync(
-                        new Album()
-                        {
-                            Id = Guid.NewGuid(),
-                            UserId = user.Id,
-                            User = user,
-                            Name = "Album1",
-                            IsFavourite = false,
-                            IsPrivate = false,
-                            LikesCount = 0,
-                            Photos = new List<Photo>(),
-                        }
-                    );
-
-                    await context.SaveChangesAsync();
+                    var album = new Album()
+                    {
+                        Id = Guid.NewGuid(),
+                        UserId = user.Id,
+                        Name = "Album1",
+                        IsFavourite = false,
+                        IsPrivate = false,
+                        LikesCount = 0,
+                        Photos = new List<Photo>(),
+                    };
+                    await context.Albums.AddAsync(album);
                 };
             }
         }
-
-
+        
         /// <summary>
         /// Заполнение базы с фотографиями
         /// </summary>
         /// <param name="context"></param>
         private static async Task SeedPhotosForUser(AppDbContext context)
         {
-            var user = context.Users.OrderBy(u => u.Id).FirstOrDefault();
+            var user = context.Users
+                .Include(u => u.Albums)
+                .AsNoTracking()
+                .FirstOrDefault();
+            
             if (user is not null)
             {
                 if(user.Albums.Count > 0)
                 {
-                    var album = await context.Albums.Where(a => a.UserId == user.Id).FirstOrDefaultAsync();
+                    var album = await context.Albums
+                        .Where(a => a.UserId == user.Id)
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync();
+                    
                     await context.Photos.AddRangeAsync(
                         new List<Photo>()
                         {
@@ -121,9 +127,7 @@ namespace PhotoEcosystem.ImageService.Data
                                 Name = "Photo1",
                                 IsFavourite = false,
                                 IsPrivate = false,
-                                AlbumId = album.Id,
-                                Album = album,
-                                User = user,
+                                AlbumId = album?.Id,
                                 UserId = user.Id,
                                 LikesCount = 0,
                             },
@@ -133,9 +137,7 @@ namespace PhotoEcosystem.ImageService.Data
                                 Name = "Photo2",
                                 IsFavourite = false,
                                 IsPrivate = false,
-                                AlbumId = album.Id,
-                                Album = album,
-                                User = user,
+                                AlbumId = album?.Id,
                                 UserId = user.Id,
                                 LikesCount = 0,
                             },
@@ -145,14 +147,14 @@ namespace PhotoEcosystem.ImageService.Data
                                 Name = "Photo3",
                                 IsFavourite = false,
                                 IsPrivate = false,
-                                AlbumId = album.Id,
-                                Album = album,
-                                User = user,
+                                AlbumId = album?.Id,
                                 UserId = user.Id,
                                 LikesCount = 0,
                             }
                         }
                     );
+
+                    await context.SaveChangesAsync();
                 }
 
                 await context.Photos.AddRangeAsync(
@@ -166,7 +168,6 @@ namespace PhotoEcosystem.ImageService.Data
                             IsPrivate = false,
                             AlbumId = null,
                             Album = null,
-                            User = user,
                             UserId = user.Id,
                             LikesCount = 0,
                         },
@@ -178,7 +179,6 @@ namespace PhotoEcosystem.ImageService.Data
                             IsPrivate = false,
                             AlbumId = null,
                             Album = null,
-                            User = user,
                             UserId = user.Id,
                             LikesCount = 0,
                         },

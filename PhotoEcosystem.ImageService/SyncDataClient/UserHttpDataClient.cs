@@ -33,7 +33,7 @@ namespace PhotoEcosystem.ImageService.SyncDataClient
             {
                 await Task.Delay(TimeSpan.FromSeconds(1));
                 using var client = new HttpClient();
-                var result = await client.GetAsync("http://userservice:8080/api/users");
+                var result = await _httpClient.GetAsync("/api/users");
                 var usersJson = await result.Content.ReadAsStringAsync();
                 var users = JsonConvert.DeserializeObject<List<HttpUser>>(usersJson);
                 return _mapper.Map<List<User>>(users);

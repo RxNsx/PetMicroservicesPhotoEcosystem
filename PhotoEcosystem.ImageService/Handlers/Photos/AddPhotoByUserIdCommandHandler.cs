@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using PhotoEcosystem.ImageService.Commands.Photos;
 using PhotoEcosystem.ImageService.Interfaces;
-using PhotoEcosystem.ImageService.Models;
 
 namespace PhotoEcosystem.ImageService.Handlers.Photos
 {
