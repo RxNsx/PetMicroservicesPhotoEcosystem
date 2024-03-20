@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using PhotoEcosystem.ImageService.Dtos.Albums;
+using PhotoEcosystem.ImageService.Models;
 
 namespace PhotoEcosystem.ImageService.Profiles
 {
@@ -12,6 +14,9 @@ namespace PhotoEcosystem.ImageService.Profiles
         /// </summary>
         public AlbumProfile()
         {
+            CreateMap<Album, AlbumReadDto>();
+            CreateMap<AlbumUpdateDto, Album>();
+            CreateMap<AlbumCreateDto, Album>();
         }
     }
 }

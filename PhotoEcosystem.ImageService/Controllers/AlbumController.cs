@@ -40,12 +40,13 @@ namespace PhotoEcosystem.ImageService.Controllers
         [HttpGet]
         [Route("album/user/{userId:guid}")]
 
-        public async Task<IActionResult> GetAllAlbumsAsync(Guid userId)
+        public async Task<IActionResult> GetAllAlbumsByUserIdAsync(Guid userId)
         {
             _logger.LogInformation($"Запрос альбомов по указанному пользователю");
             var query = new GetAllAbumsByUserIdQuery(userId);
             var result = await _mediator.Send(query, default);
-            return Ok(result);
+            var albums = _mapper.Map<AlbumReadDto>(result);
+            return Ok(albums);
         }
 
         /// <summary>
@@ -60,13 +61,12 @@ namespace PhotoEcosystem.ImageService.Controllers
             _logger.LogInformation($"Запрос альбома по айди");
             var query = new GetAlbumByIdQuery(albumId);
             var result = await _mediator.Send(query, default);
-
             if(result is null)
             {
                 return NotFound();
             }
-
-            return Ok(result);
+            var album = _mapper.Map<AlbumReadDto>(result);
+            return Ok(album);
         }
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace PhotoEcosystem.ImageService.Controllers
             _logger.LogInformation($"Запрос всех альбомов");
             var query = new GetAllAlbumsQuery();
             var result = await _mediator.Send(query, default);
-
-            return Ok(result);
+            var albums = _mapper.Map<List<AlbumReadDto>>(result);
+            return Ok(albums);
         }
 
         /// <summary>
@@ -95,7 +95,10 @@ namespace PhotoEcosystem.ImageService.Controllers
             var album = _mapper.Map<Album>(albumCreateDto);
             var command = new CreateAlbumCommand(album);
             var result = await _mediator.Send(command, default);
-
+            if (result is null)
+            {
+                return BadRequest();
+            }
             return CreatedAtRoute(nameof(CreateAlbumAsync), new { result.Name });
         }
 
@@ -111,13 +114,12 @@ namespace PhotoEcosystem.ImageService.Controllers
             var album = _mapper.Map<Album>(albumUpdateDto);
             var command = new UpdateAlbumCommand(album);
             var result = await _mediator.Send(command, default);
-
             if(result is null)
             {
                 return BadRequest();
             }
-
-            return Ok(result);
+            var updatedAlbum = _mapper.Map<Album>(result);
+            return Ok(updatedAlbum);
         }
 
         /// <summary>
