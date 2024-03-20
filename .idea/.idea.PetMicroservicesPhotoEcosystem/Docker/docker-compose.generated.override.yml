@@ -1,0 +1,39 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.4"
+services:
+  photoecosystem.imageservice:
+    build:
+      context: "E:\\NETDEVELOPER\\Projects\\PetMicroservicesPhotoEcosystem"
+      dockerfile: "PhotoEcosystem.ImageService/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/PhotoEcosystem.ImageService.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "photoecosystemimageservice:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\VadimSbitnev\\.nuget\\packages:/home/app/.nuget/packages"
+    - "E:\\NETDEVELOPER\\Projects\\PetMicroservicesPhotoEcosystem\\PhotoEcosystem.ImageService:/app:rw"
+    - "E:\\NETDEVELOPER\\Projects\\PetMicroservicesPhotoEcosystem:/src:rw"
+    working_dir: "/app"
+  photoecosystem.userservice:
+    build:
+      context: "E:\\NETDEVELOPER\\Projects\\PetMicroservicesPhotoEcosystem"
+      dockerfile: "PhotoEcosystem.UserService/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/PhotoEcosystem.UserService.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "photoecosystemuserservice:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\VadimSbitnev\\.nuget\\packages:/home/app/.nuget/packages"
+    - "E:\\NETDEVELOPER\\Projects\\PetMicroservicesPhotoEcosystem\\PhotoEcosystem.UserService:/app:rw"
+    - "E:\\NETDEVELOPER\\Projects\\PetMicroservicesPhotoEcosystem:/src:rw"
+    working_dir: "/app"
