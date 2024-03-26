@@ -10,6 +10,14 @@ using PhotoEcosystem.UserService.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", configure =>
+    {
+        configure.WithOrigins("http://localhost:3000");
+    });
+});
+
 // Add services to the container.
 builder.Services.AddControllers(options =>
 {
@@ -23,7 +31,7 @@ builder.Services.AddSwaggerGen(cfg =>
     {
         Title = "UserServiceAPI",
         Version = "v1",
-        Description = "API для управления пользователями"
+        Description = "API пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"
     });
 
     var xmlDocFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -31,28 +39,28 @@ builder.Services.AddSwaggerGen(cfg =>
     cfg.IncludeXmlComments(xmlDocPath, true);
 });
 
-//Подключение настроек из конфигурации
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 builder.Services.Configure<RabbitMqSettings>(
     builder.Configuration.GetSection("RabbitMqSettings"));
 builder.Services.AddSingleton(sp =>
     sp.GetRequiredService<IOptions<RabbitMqSettings>>().Value);
 
-//Подключение бд
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
 builder.Services.AddDbContext<AppDbContext>(opts =>
 {
     opts.UseNpgsql(builder.Configuration["ConnectionStrings:PostgreConnectionString"]);
 });
 
-//Подключение медиатра
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 builder.Services.AddMediatR(conf =>
 {
     conf.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
 });
 
-//Подключение автомаппера
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-///Настройка работы с брокером
+///пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 builder.Services.AddMassTransit(busConfigurator =>
 {
     busConfigurator.SetKebabCaseEndpointNameFormatter();
@@ -76,11 +84,12 @@ var app = builder.Build();
 PrepDatabase.PreparationDatabase(app, builder.Environment.IsProduction());
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
 /// <summary>
-/// Частичный класс для тестов
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 /// </summary>
 public partial class Program { }
