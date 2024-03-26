@@ -11,10 +11,9 @@ using PhotoEcosystem.ImageService.SyncDataClient;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
-
-services.AddControllers(configre =>
+services.AddControllers(configure =>
 {
-    configre.SuppressAsyncSuffixInActionNames = true;
+    configure.SuppressAsyncSuffixInActionNames = true;
 });
 
 services.AddEndpointsApiExplorer();

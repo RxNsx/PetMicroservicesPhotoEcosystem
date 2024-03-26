@@ -41,7 +41,7 @@ namespace PhotoEcosystem.ImageService.SyncDataClient
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                throw new ArgumentNullException(ex.Message);
             }
         }
     }
