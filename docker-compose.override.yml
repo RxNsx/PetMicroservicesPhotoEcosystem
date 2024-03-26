@@ -20,6 +20,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "8001:8080"
+    depends_on: 
+      - postgre-users-db
 
   photoecosystem.imageservice:
     container_name: imageservice
@@ -29,6 +31,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "8002:8080"
+    depends_on: 
+      - postgre-images-db
   
   photoecosystem.rabbitmq:
     networks:
