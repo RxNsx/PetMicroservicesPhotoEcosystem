@@ -1,0 +1,60 @@
+﻿[
+  {
+    "id": "0feda550-ebd5-48e9-a3e1-a68eeb4a5cf4",
+    "login": "user1",
+    "email": "user1@mail.ru",
+    "status": 2,
+    "lastTimeOnline": "2024-03-26T11:26:41.06908Z"
+  },
+  {
+    "id": "7f626c17-8740-4d31-84e7-fddfbdcd98f3",
+    "login": "user2",
+    "email": "user2@mail.ru",
+    "status": 2,
+    "lastTimeOnline": "2024-03-26T11:26:41.069105Z"
+  },
+  {
+    "id": "c5aa4845-bc9a-4d1f-9d4d-3d75df19fcbb",
+    "login": "user3",
+    "email": "admin@mail.ru",
+    "status": 2,
+    "lastTimeOnline": "2024-03-26T11:26:41.06897Z"
+  },
+  {
+    "id": "f3265cc3-30f3-4ae7-9470-f6cae1f9e841",
+    "login": "user4",
+    "email": "user3@mail.ru",
+    "status": 2,
+    "lastTimeOnline": "2024-03-26T11:26:41.069111Z"
+  },
+  {
+    "id": "0geda550-ebd5-48e9-a3e1-a68eeb4a5cf4",
+    "login": "user5",
+    "email": "user1@mail.ru",
+    "status": 2,
+    "lastTimeOnline": "2024-03-26T11:26:41.06908Z"
+  },
+  {
+    "id": "7a626c17-8740-4d31-84e7-fddfbdcd98f3",
+    "login": "user6",
+    "email": "user2@mail.ru",
+    "status": 2,
+    "lastTimeOnline": "2024-03-26T11:26:41.069105Z"
+  },
+  {
+    "id": "c1aa4845-bc9a-4d1f-9d4d-3d75df19fcbb",
+    "login": "user7",
+    "email": "admin@mail.ru",
+    "status": 2,
+    "lastTimeOnline": "2024-03-26T11:26:41.06897Z"
+  },
+  {
+    "id": "f5265cc3-30f3-4ae7-9470-f6cae1f9e841",
+    "login": "user8",
+    "email": "user3@mail.ru",
+    "status": 2,
+    "lastTimeOnline": "2024-03-26T11:26:41.069111Z"
+  }
+  
+  
+]

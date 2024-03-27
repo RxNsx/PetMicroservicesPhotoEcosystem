@@ -1,9 +1,9 @@
 ﻿import React from "react";
 
-export function Footer() {
+export function FooterLayout() {
     return (
         <footer>
-            <p>Copyright 2022</p>
+            <p>Copyright 2024</p>
         </footer>
     )
 }

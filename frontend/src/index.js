@@ -1,23 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {Header} from './components/Header';
-import {Footer} from './components/Footer';
-import {Main} from './components/Main';
-import './styles/style.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import './styles/index.css';
+import {HeaderLayout} from "./components/HeaderLayout";
+import {MainLayout} from "./components/MainLayout";
+import {FooterLayout} from "./components/FooterLayout";
+import About from "./components/About";
 
 function Page() {
     return (
         <div>
-            <Header/>
-            <Main />
-            <Footer/>
+            <HeaderLayout/>
+            <MainLayout />
+            <FooterLayout/>
         </div>
     )
 }
 
+function App()
+{
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Page />} />
+                <Route path="/about" element={<About />} />
+            </Routes>
+        </BrowserRouter>
+    )
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-    <React.StrictMode>
-        <Page/>
-    </React.StrictMode>
+    //COLORSCHEME https://colorscheme.ru/#3Yc1Que5lW9ho
+    <App />
 );
+
