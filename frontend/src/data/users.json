@@ -54,7 +54,12 @@
     "email": "user3@mail.ru",
     "status": 2,
     "lastTimeOnline": "2024-03-26T11:26:41.069111Z"
+  },
+  {
+    "id": "f5265gg3-30f3-4ae7-9470-f6cae1f9e841",
+    "login": "user8",
+    "email": "user3@mail.ru",
+    "status": 2,
+    "lastTimeOnline": "2024-03-26T11:26:41.069111Z"
   }
-  
-  
 ]
