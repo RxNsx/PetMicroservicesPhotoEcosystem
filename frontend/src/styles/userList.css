@@ -22,7 +22,23 @@
     box-shadow: #666600 5px 5px 10px;
 }
 
-.user-btn {
-    background-color: #330066;
-    color: white;
+.btn-view {
+    background-color: green;
+}
+.btn-view:hover {
+    background-color: darkgreen;
+}
+
+.btn-update {
+    background-color: #666600;
+}
+.btn-update:hover {
+    background-color: #666660;
+}
+
+.btn-delete {
+    background-color: red;
+}
+.btn-delete:hover {
+    background-color: darkred;
 }
