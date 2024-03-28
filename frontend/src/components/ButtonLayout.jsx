@@ -12,6 +12,11 @@ export default function ButtonLayout({onClickFunction, onClickFunctionParameter,
     }
     
     return (
-        <button className={`user-btn ${colorClass}`} onClick={handleClick}>{buttonText}</button>
+        <button 
+            className={`btn ${colorClass}`} 
+            onClick={handleClick}
+        >
+            {buttonText}
+        </button>
     )
 }
