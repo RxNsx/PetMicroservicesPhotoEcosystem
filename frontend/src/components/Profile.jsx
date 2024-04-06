@@ -9,6 +9,8 @@ export default function Profile() {
     function signIn()
     {
         //TODO: Сделать вход по JWT токену
+        const modalWindow = document.getElementById('modal-window');
+        modalWindow.style.display = 'block';
         setSignState(true);
     }
     
@@ -20,27 +22,42 @@ export default function Profile() {
     
     function register()
     {
+        const modalWindow = document.getElementById('modal-window');
+        modalWindow.style.display = 'block';
         //TODO: Сделать регистрацию
     }
     
     return (
-        <div className="profile-buttons">
-            {signedIn
-                ?
-                (<>
-                    <div className={"profile-link"}>
-                        <Link to={"/user"}>
-                            <ButtonLayout buttonText={"Профиль"} colorClass={"btn-profile"} />
-                        </Link>
-                    </div>
-                    <ButtonLayout buttonText={"Выйти"} colorClass={"btn-logout"} onClickFunction={logout} />
-                </>)
-                :
-                (<>
-                    <ButtonLayout buttonText={"Войти"} colorClass={"btn-login"} onClickFunction={signIn} />
-                    <ButtonLayout buttonText={"Зарегистрироваться"} colorClass={"btn-register"} onClickFunction={register} />
-                </>)
-            }
-        </div>
+        <>
+            <div className="profile-buttons">
+                {signedIn
+                    ?
+                    (<>
+                        <div className={"profile-link"}>
+                            <Link to={"/user"}>
+                                <ButtonLayout
+                                    buttonText={"Профиль"}
+                                    colorClass={"btn-profile"}/>
+                            </Link>
+                        </div>
+                        <ButtonLayout
+                            buttonText={"Выйти"}
+                            colorClass={"btn-logout"}
+                            onClickFunction={logout}/>
+                    </>)
+                    :
+                    (<>
+                        <ButtonLayout
+                            buttonText={"Войти"}
+                            colorClass={"btn-login"}
+                            onClickFunction={signIn}/>
+                        <ButtonLayout
+                            buttonText={"Зарегистрироваться"}
+                            colorClass={"btn-register"}
+                            onClickFunction={register}/>
+                    </>)
+                }
+            </div>
+        </>
     )
 }

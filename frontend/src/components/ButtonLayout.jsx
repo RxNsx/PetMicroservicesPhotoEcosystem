@@ -1,22 +1,32 @@
 ﻿import React from "react";
 import "../styles/buttonLayout.css";
 
-export default function ButtonLayout({onClickFunction, onClickFunctionParameter, colorClass, buttonText}) {
+export default function ButtonLayout(props) {
 
+    console.log(props.disabled);
+    
     let handleClick;
-    if(onClickFunction)
+    if(props.onClickFunction)
     {
         handleClick = () => {
-            onClickFunction(onClickFunctionParameter);
+            props.onClickFunction();
+        }
+    }
+    
+    if(props.onClickFunctionParameter)
+    {
+        handleClick = () => {
+            props.onClickFunction(props.onClickFunctionParameter);
         }
     }
     
     return (
         <button 
-            className={`btn ${colorClass}`} 
+            className={`btn ${props.colorClass ? props.colorClass : ''} ${props.btnClass ? props.btnClass : ''}`}
+            disabled={props.disabled}
             onClick={handleClick}
         >
-            {buttonText}
+            {props.buttonText}
         </button>
     )
 }
