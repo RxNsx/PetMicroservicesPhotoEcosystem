@@ -10,7 +10,7 @@ public sealed class AlbumRepository : IAlbumRepository
 
     public AlbumRepository(AppDbContext context)
     {
-        _context = context; 
+        _context = context;
     }
     
     public async Task<AlbumAggregate> AddAlbumAsync(string name)
