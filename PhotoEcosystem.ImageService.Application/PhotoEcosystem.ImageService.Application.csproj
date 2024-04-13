@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PhotoEcosystem.ImageService.Domain\PhotoEcosystem.ImageService.Domain.csproj" />
+      <ProjectReference Include="..\Shared.Kernel\Shared.Kernel.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.9.0" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+      <PackageReference Include="MediatR" Version="12.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Albums\Queries\" />
+      <Folder Include="Behaviours\" />
+      <Folder Include="Exceptions\" />
+      <Folder Include="Photos\Queries\" />
+    </ItemGroup>
+
+</Project>
