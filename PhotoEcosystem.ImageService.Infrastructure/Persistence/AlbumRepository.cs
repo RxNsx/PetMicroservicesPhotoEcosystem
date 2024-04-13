@@ -1,5 +1,4 @@
-﻿using PhotoEcosystem.ImageService.Application.Abstractions.Data;
-using PhotoEcosystem.ImageService.Domain.Aggregates.Album;
+﻿using Microsoft.EntityFrameworkCore;
 using PhotoEcosystem.ImageService.Domain.Aggregates.Albums;
 using PhotoEcosystem.ImageService.Domain.Interfaces;
 
@@ -17,12 +16,23 @@ public sealed class AlbumRepository : IAlbumRepository
     public async Task<AlbumAggregate> AddAlbumAsync(string name)
     {
         var newAlbum = new AlbumAggregate(Guid.NewGuid(), name);
-        var album = await _context.AddAsync(newAlbum);
+        var album = await _context.Albums.AddAsync(newAlbum);
         return album.Entity;
     }
 
-    public Task<AlbumAggregate> GetByIdAsync(Guid id)
+    public async Task<AlbumAggregate> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _context.Albums.FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
+    }
+
+    public async Task<bool> RemoveAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var album = await GetByIdAsync(id, cancellationToken);
+        if (album is null)
+        {
+            return false;
+        }
+        
+        return _context.Albums.Remove(album).State == EntityState.Deleted;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using PhotoEcosystem.ImageService.Application.Abstractions.Data;
-using PhotoEcosystem.ImageService.Domain.Aggregates.Album;
+using PhotoEcosystem.ImageService.Domain.Aggregates.Albums;
 using PhotoEcosystem.ImageService.Domain.Interfaces;
 using Shared;
 

@@ -1,12 +1,12 @@
 ﻿using Shared;
 using Shared.Primitives;
 
-namespace PhotoEcosystem.ImageService.Domain.Aggregates.Album;
+namespace PhotoEcosystem.ImageService.Domain.Aggregates.Albums;
 
 public class AlbumName : ValueObject
 {
     public const int MaxLength = 50;
-    public string Name { get; init; }
+    public string Name { get; }
 
     private AlbumName() {}
     

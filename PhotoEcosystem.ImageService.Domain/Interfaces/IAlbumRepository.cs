@@ -16,5 +16,13 @@ public interface IAlbumRepository
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task<AlbumAggregate> GetByIdAsync(Guid id);
+    Task<AlbumAggregate> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Удаление альбома
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<bool> RemoveAsync(Guid id, CancellationToken cancellationToken);
 }
